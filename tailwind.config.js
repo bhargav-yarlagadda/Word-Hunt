@@ -5,7 +5,24 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        dropin: {
+          '0%':{
+            transform: 'translateY(-25%)',
+            opacity:'0',
+    
+          },
+          '100%': {
+            transform:'translateY(0)',
+            opacity:'1',
+          },
+        },
+      },
+      animation: {
+        'drop-in': 'dropin 0.4s ease-in',
+      },
+    },
   },
   plugins: [],
 }
