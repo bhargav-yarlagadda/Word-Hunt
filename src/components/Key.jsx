@@ -5,7 +5,7 @@ const Key = ({val}) => {
 
     const selectLetter = (val)=>{
         const currentBoard = [...board]
-        currentBoard[0][0] = val 
+        currentBoard[0][0] = val.toUpperCase() 
         setBoard(currentBoard)
 
     }
