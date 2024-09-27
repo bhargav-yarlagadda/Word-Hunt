@@ -1,13 +1,21 @@
-import React from 'react'
-import { defaultBoard } from '../words'
+import React, { useState } from 'react';
+;
+import Letter from './Letter';
 
 const Board = () => {
-    const [board,setBoard]=useState(defaultBoard)
-  return (
-    <div className='' >
-      
-    </div>
-  )
-}
+ 
 
-export default Board
+  return (
+    <div className='flex flex-col items-center'>
+      {Array.from({ length: 6 }).map((_, attemptValue) => (
+        <div className="flex gap-4" key={attemptValue}>
+          {Array.from({ length: 5 }).map((_, letterPos) => (
+            <Letter letterPos={letterPos} attemptValue={attemptValue} key={letterPos} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Board;
