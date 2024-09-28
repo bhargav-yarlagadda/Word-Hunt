@@ -16,7 +16,7 @@ const App = () => {
   const generateNewWord = () => {
     const wordList = [...words];
     const index = Math.floor(Math.random() * wordList.length);
-    console.log(wordList[index])
+    
     setCorrectWord(wordList[index].toUpperCase());
   };
 
