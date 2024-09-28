@@ -25,22 +25,24 @@ const App = () => {
   }, []);
 
   const resetGame = () => {
-    setBoard(defaultBoard);
+    setBoard(Array(6).fill(Array(5).fill('')))
     setCurrAttempt({ attempt: 0, letterPos: 0 });
     generateNewWord(); // Generate a new word when resetting the game
   };
-
   const onSelectLetter = (val) => {
     const { attempt, letterPos } = currAttempt;
-    const newBoard = [...board];
+  
+    const newBoard = board.map(row => [...row]);
     newBoard[attempt][letterPos] = val.toUpperCase();
+    
     setBoard(newBoard);
     setCurrAttempt(prev => ({ ...prev, letterPos: letterPos + 1 }));
   };
-
+  
   const onDelete = () => {
     const { attempt, letterPos } = currAttempt;
-    const newBoard = [...board];
+  
+    const newBoard = board.map(row => [...row]);
     if (letterPos > 0) {
       newBoard[attempt][letterPos - 1] = ''; // Clear the previous letter
       setBoard(newBoard);
