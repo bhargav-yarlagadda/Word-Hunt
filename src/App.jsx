@@ -1,5 +1,6 @@
 import React, { createContext,useEffect,useState } from 'react'
 import Header from './components/Header'
+import WonBanner from './components/WonBanner'
 import Board from './components/Board'
 import Keyboard from './components/Keyboard'
 import { defaultBoard,words } from './utils/words'
@@ -8,8 +9,7 @@ const App = () => {
   const [board, setBoard] = useState(defaultBoard);
   const [currAttempt,setCurrAttempt] = useState({attempt:0,letterPos:0})
   const [correctWord,setCorrectWord]= useState("RIGHT")
-
-  
+  const [won,setWon] = useState(false)
   useEffect(() => {
     const wordList = [...words];
 
@@ -38,18 +38,24 @@ const App = () => {
         setCurrAttempt(prev => ({ ...prev, letterPos: letterPos - 1 }));
     }
   }
-  const onEnter=()=>{
-    const {letterPos,attempt}= currAttempt
-    if(letterPos<5){
-      return
+  const onEnter = () => {
+    const { letterPos, attempt } = currAttempt;
+    const currWord = board[attempt].join("");
+    if (letterPos < 5) {
+      return;
     }
-    
-    setCurrAttempt({letterPos:0,attempt:attempt+1})
-   
-  }
+    if (correctWord === currWord) {
+      setWon(true);
+    }
+    setCurrAttempt({ letterPos: 0, attempt: attempt + 1 });
+  };
+
   return (
     <>
     <Header/>
+    {
+      won && <WonBanner setWon={setWon} />
+    }
     <div className='flex flex-wrap items-center lg:flex-row justify-around h-[90vh] flex-col items-between  lg:justify-around' >
       <AppContext.Provider value={{board,setBoard,currAttempt,setCurrAttempt,onEnter,onDelete,onSelectLetter,correctWord,setCorrectWord}} >
       <Board/>
