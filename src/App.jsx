@@ -1,43 +1,53 @@
-import React, { createContext,useEffect,useState } from 'react'
-import Header from './components/Header'
-import WonBanner from './components/WonBanner'
-import Board from './components/Board'
-import Keyboard from './components/Keyboard'
-import { defaultBoard,words } from './utils/words'
-export const AppContext = createContext()
+import React, { createContext, useEffect, useState } from 'react';
+import Header from './components/Header';
+import WonBanner from './components/WonBanner';
+import Board from './components/Board';
+import Keyboard from './components/Keyboard';
+import { defaultBoard, words } from './utils/words';
+
+export const AppContext = createContext();
+
 const App = () => {
   const [board, setBoard] = useState(defaultBoard);
-  const [currAttempt,setCurrAttempt] = useState({attempt:0,letterPos:0})
-  const [correctWord,setCorrectWord]= useState("RIGHT")
-  const [won,setWon] = useState(false)
-  useEffect(() => {
+  const [currAttempt, setCurrAttempt] = useState({ attempt: 0, letterPos: 0 });
+  const [correctWord, setCorrectWord] = useState("");
+  const [won, setWon] = useState(false);
+
+  const generateNewWord = () => {
     const wordList = [...words];
-
-    function getRndInteger(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    const index = getRndInteger(0, wordList.length - 1); // Use wordList.length to avoid hardcoding
-    console.log(wordList[index]);
+    const index = Math.floor(Math.random() * wordList.length);
+    console.log(wordList[index])
     setCorrectWord(wordList[index].toUpperCase());
+  };
+
+  useEffect(() => {
+    generateNewWord();
   }, []);
 
-  const onSelectLetter=(val)=>{
-    const {attempt,letterPos}= currAttempt 
+  const resetGame = () => {
+    setBoard(defaultBoard);
+    setCurrAttempt({ attempt: 0, letterPos: 0 });
+    generateNewWord(); // Generate a new word when resetting the game
+  };
+
+  const onSelectLetter = (val) => {
+    const { attempt, letterPos } = currAttempt;
     const newBoard = [...board];
     newBoard[attempt][letterPos] = val.toUpperCase();
     setBoard(newBoard);
-    setCurrAttempt(prev => ({ ...prev, letterPos: letterPos+1 }))
-  }
-  const onDelete=()=>{
-    const {attempt,letterPos}= currAttempt
+    setCurrAttempt(prev => ({ ...prev, letterPos: letterPos + 1 }));
+  };
+
+  const onDelete = () => {
+    const { attempt, letterPos } = currAttempt;
     const newBoard = [...board];
     if (letterPos > 0) {
-        newBoard[attempt][letterPos - 1] = ''; // Clear the previous letter
-        setBoard(newBoard);
-        setCurrAttempt(prev => ({ ...prev, letterPos: letterPos - 1 }));
+      newBoard[attempt][letterPos - 1] = ''; // Clear the previous letter
+      setBoard(newBoard);
+      setCurrAttempt(prev => ({ ...prev, letterPos: letterPos - 1 }));
     }
-  }
+  };
+
   const onEnter = () => {
     const { letterPos, attempt } = currAttempt;
     const currWord = board[attempt].join("");
@@ -52,19 +62,16 @@ const App = () => {
 
   return (
     <>
-    <Header/>
-    {
-      won && <WonBanner setWon={setWon} />
-    }
-    <div className='flex flex-wrap items-center lg:flex-row justify-around h-[90vh] flex-col items-between  lg:justify-around' >
-      <AppContext.Provider value={{board,setBoard,currAttempt,setCurrAttempt,onEnter,onDelete,onSelectLetter,correctWord,setCorrectWord}} >
-      <Board/>
-      <Keyboard/>
-      </AppContext.Provider>
-
-    </div>
+      <div className='flex flex-wrap items-center lg:flex-row justify-around h-[90vh] flex-col items-between lg:justify-around'>
+        <Header />
+        {won && <WonBanner setWon={setWon} resetGame={resetGame} />}
+        <AppContext.Provider value={{ board, setBoard, currAttempt, setCurrAttempt, onEnter, onDelete, onSelectLetter, correctWord, setCorrectWord }}>
+          <Board />
+          <Keyboard />
+        </AppContext.Provider>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
