@@ -2,38 +2,20 @@ import React, { useContext } from 'react';
 import { AppContext } from '../App';
 
 const Key = ({ val }) => {
-    const { board, setBoard } = useContext(AppContext);
-    const { currAttempt, setCurrAttempt } = useContext(AppContext);
-
+    const {onSelectLetter,onEnter,onDelete} = useContext(AppContext)
     
 
     const selectLetter = (val) => {
-      const { letterPos, attempt } = currAttempt;
-  
-      if (val === "enter") {
-          // Allow submission only if at least 5 letters have been entered
-          if (letterPos < 4) return; 
         
-
-          setCurrAttempt(prev => ({ ...prev, attempt: attempt + 1, letterPos: 0 })); // Reset letterPos for the next attempt
-      } else if (val === "del") {
-          // Handle delete functionality
-          const newBoard = [...board];
-          if (letterPos > 0) {
-              newBoard[attempt][letterPos - 1] = ''; // Clear the previous letter
-              setBoard(newBoard);
-              setCurrAttempt(prev => ({ ...prev, letterPos: letterPos - 1 }));
-          }
-      } else {
-          // Add letter if within valid position
-          if (letterPos < 5) {
-              const newBoard = [...board];
-              newBoard[attempt][letterPos] = val.toUpperCase();
-              setBoard(newBoard);
-              setCurrAttempt(prev => ({ ...prev, letterPos: letterPos + 1 }));
+        if (val === "enter") {
+            onEnter(val)
+        } else if (val === "del") {
+            onDelete()
+        } else {
+          onSelectLetter(val)
           }
       }
-  };
+  
   
 
     return (
