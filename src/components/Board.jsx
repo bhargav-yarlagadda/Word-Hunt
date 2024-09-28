@@ -6,7 +6,7 @@ const Board = () => {
  
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col '>
       {Array.from({ length: 6 }).map((_, attemptValue) => (
         <div className="flex gap-4" key={attemptValue}>
           {Array.from({ length: 5 }).map((_, letterPos) => (
