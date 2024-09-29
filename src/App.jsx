@@ -4,7 +4,9 @@ import WonBanner from './components/WonBanner';
 import Board from './components/Board';
 import Keyboard from './components/Keyboard';
 import { defaultBoard, words } from './utils/words';
-
+import Rules from './components/Rules';
+import Icon from './components/Icon';
+import InfoWithRules from './components/InfoBar';
 export const AppContext = createContext();
 
 const App = () => {
@@ -65,6 +67,7 @@ const App = () => {
   return (
     <>
       <div className='flex flex-wrap items-center lg:flex-row justify-around h-[90vh] flex-col items-between lg:justify-around'>
+        <InfoWithRules/>
         <Header />
         {won && <WonBanner setWon={setWon} resetGame={resetGame} />}
         <AppContext.Provider value={{ board, setBoard, currAttempt, setCurrAttempt, onEnter, onDelete, onSelectLetter, correctWord, setCorrectWord }}>
