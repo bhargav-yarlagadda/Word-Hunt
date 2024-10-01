@@ -12,7 +12,9 @@ const InfoWithRules = () => {
         onMouseEnter={() => setShowRules(true)}
         onMouseLeave={() => setShowRules(false)}
       >
-        <Icon />
+        <div className=' italic rounded-full w-6 text-center text-white h-6 border-2 border-white'>
+          i
+        </div>
       </div>
 
         <div>

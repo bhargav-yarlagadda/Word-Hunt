@@ -4,9 +4,8 @@ import WonBanner from './components/WonBanner';
 import Board from './components/Board';
 import Keyboard from './components/Keyboard';
 import { defaultBoard, words } from './utils/words';
-import Rules from './components/Rules';
-import Icon from './components/Icon';
 import InfoWithRules from './components/InfoBar';
+import ShowAnswer from './components/ShowAnswer';
 export const AppContext = createContext();
 
 const App = () => {
@@ -72,6 +71,7 @@ const App = () => {
         {won && <WonBanner setWon={setWon} resetGame={resetGame} />}
         <AppContext.Provider value={{ board, setBoard, currAttempt, setCurrAttempt, onEnter, onDelete, onSelectLetter, correctWord, setCorrectWord }}>
           <Board />
+          {!won && currAttempt.attempt > 5 && <ShowAnswer setWon={setWon} resetGame={resetGame} />}
           <Keyboard />
         </AppContext.Provider>
       </div>
