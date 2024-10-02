@@ -9,9 +9,9 @@ const ShowAnswer = ({ setWon, resetGame }) => {
   };
 
   return (
-    <div className='w-screen z-10 absolute top-0 h-screen flex backdrop-blur-sm bg-opacity-50 bg-[#CDC1FF] justify-center items-center'>
-      <div className=' bg-opacity-30  bg-[#FFD3A3] backdrop-blur-3xl flex flex-col py-24 justify-center items-center p-8 rounded-lg shadow-lg text-center'>
-        <span className='text-xl font-bold text-gray-800'>Oops!! <br /> you have used all your attempts</span>
+    <div className='w-screen z-10  absolute top-0 h-screen flex backdrop-blur-sm  bg-opacity-90 bg-[#000000] justify-center items-center ' >
+      <div className='z-10 bg-opacity-40  cursor-default bg-[#8a8989] flex flex-col py-16 justify-center items-center px-24 rounded-lg shadow-lg text-center'>
+        <span className='text-xl font-bold text-[#f5f5f5cb]'>Oops!! <br /> you have used all your attempts</span>
         <span>the correct word is </span>
         <span className='text-3xl montserrat'>{correctWord}</span>
         <button 
