@@ -2,7 +2,7 @@
 
 ## Overview
 ##### This Application mimics the functionality of https://www.nytimes.com/games/wordle/index.html
-This is a Word Guessing Game built with React. The player has to guess a randomly selected word within a limited number of attempts. The application provides a virtual keyboard for input, and it visually displays the current guesses, indicating whether each letter is correct, incorrect, or present in the word.
+This word Guessing Game built with React. The player has to guess a randomly selected word within a limited number of attempts. The application provides a virtual keyboard for input, and it visually displays the current guesses, indicating whether each letter is correct, incorrect, or present in the word.
 
 ## Features
 
